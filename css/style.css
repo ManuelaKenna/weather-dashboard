@@ -1,5 +1,10 @@
+h2 {
+    color: black;
+}
+
 body {
     background-color: rgb(177, 230, 232);
+    color: black;
 }
 
 header {
