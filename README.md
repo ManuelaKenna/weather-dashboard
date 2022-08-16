@@ -1,7 +1,7 @@
 # weather-dashboard
 A weather forecast site!
 
-URL: 
+URL: https://manuelakenna.github.io/weather-dashboard/
 
 <h2>User Story<h2>
 
