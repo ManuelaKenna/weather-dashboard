@@ -39,3 +39,4 @@ function getWeather(lat, lon, name) {
         })
 }
 
+
