@@ -1,6 +1,8 @@
 var APIkey = "9d46100dbb5cee1b2ea56f80f9d14898"
 
 var currentCity = "Seattle"
+// var search = searchInput.value.trim();
+// var searchInput = document.querySelector('#search-input');
 
 function getGeo() {
     var geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=1&appid=" + APIkey
@@ -17,6 +19,18 @@ function getGeo() {
 }
 
 getGeo()
+
+
+// function handleFormSubmit() {
+//     preventDefault();
+//     if (searchInput.value == "" || search.value == "") {
+//         $("#alert").text("Please select a city");
+//         return;
+//     } else {
+//         $("#alert").empty();
+//     };
+
+// }
 
 //make lis for all the different weather information in the categories
 function getWeather(lat, lon, name) {
