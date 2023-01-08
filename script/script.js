@@ -1,11 +1,20 @@
 var APIkey = "9d46100dbb5cee1b2ea56f80f9d14898"
 
-var currentCity = "Seattle"
+// var currentCity = "Seattle"
 // var search = searchInput.value.trim();
-// var searchInput = document.querySelector('#search-input');
 
-function getGeo() {
-    var geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=1&appid=" + APIkey
+
+var submitBtn = document.getElementById("submit-btn");
+submitBtn.addEventListener("click", function(event)  {
+    event.preventDefault();
+    console.log("button clicked");
+    var searchInput = document.querySelector('#search-input').value
+    console.log(searchInput);
+    getGeo(searchInput)
+})
+
+function getGeo(currentCity) {
+    var geoUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=1&appid=" + APIkey
     fetch(geoUrl).then(function (response) {
         return response.json()
     })
@@ -18,7 +27,7 @@ function getGeo() {
         })
 }
 
-getGeo()
+
 
 
 // function handleFormSubmit() {
@@ -49,8 +58,25 @@ function getWeather(lat, lon, name) {
             var windspeedLi = $("<li>").addClass("list-group-item").text("Wind Speed: " + data.current.wind_speed)
             var uviLi = $("<li>").addClass("list-group-item").text("UVI: " + data.current.uvi)
             $("#weatherMain").append(card.append(cardTitle, cardBody.append(ulEl.append(tempLi, humidityLi, windspeedLi, uviLi))))
-            response.weather[0].icon
+            // response.weather[0].icon
+            createForecastCards(data.daily)
         })
 }
 
+function createForecastCards (dailyWeather) {
+    console.log(dailyWeather)
+    for (var i = 1; i < 6; i++) {
+        var formattedDate = new Date(dailyWeather[i].dt*1000).toDateString().split(' ')[0]
+        console.log(formattedDate)
+        var card = $("<div>").addClass("card");
+        var cardBody = $("<div>").addClass("card-body")
+        var cardTitle = $("<h3>").addClass("card-title").text(formattedDate)
+        var ulEl = $("<ul>").addClass("list-group list-group-flush")
+        var tempLi = $("<li>").addClass("list-group-item").text("Temp: " + dailyWeather[i].temp.day)
+        var humidityLi = $("<li>").addClass("list-group-item").text("Humidity: " + dailyWeather[i].humidity)
+        var windspeedLi = $("<li>").addClass("list-group-item").text("Wind Speed: " + dailyWeather[i].wind_speed)
+        var uviLi = $("<li>").addClass("list-group-item").text("UVI: " + dailyWeather[i].uvi)
+        $("#forecast-box").append(card.append(cardBody.append(cardTitle, ulEl.append(tempLi, humidityLi, uviLi, windspeedLi))))
+    }
+}
 
